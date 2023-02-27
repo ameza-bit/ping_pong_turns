@@ -31,19 +31,21 @@ class _PlayerListState extends State<PlayerList> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
+            child: ReorderableListView.builder(
               itemCount: Global.usuarios.length,
               shrinkWrap: true,
+              // buildDefaultDragHandles: false,
               itemBuilder: (context, index) {
                 bool onList = Global.jugando.contains(j[index]);
                 bool playing = index == 0 || index == 1;
                 Color color = playing
                     ? const Color.fromARGB(255, 84, 88, 206)
-                    : !onList
-                        ? const Color.fromARGB(255, 30, 33, 117)
-                        : const Color.fromARGB(255, 30, 72, 255);
+                    : onList
+                        ? const Color.fromARGB(255, 30, 72, 255)
+                        : const Color.fromARGB(255, 30, 33, 117);
 
                 return Padding(
+                  key: Key('$index'),
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
                     onPressed: () => setState(() => !onList
@@ -60,6 +62,16 @@ class _PlayerListState extends State<PlayerList> {
                     ),
                   ),
                 );
+              },
+              onReorder: (int oldIndex, int newIndex) {
+                setState(() {
+                  oldIndex -= 2;
+                  newIndex -= 2;
+                  if (oldIndex < 0 || newIndex < 0 || newIndex > Global.jugando.length || oldIndex >= Global.jugando.length) return;
+                  if (oldIndex < newIndex) { newIndex -= 1; }
+                  final Usuario item = Global.jugando.removeAt(oldIndex);
+                  Global.jugando.insert(newIndex, item);
+                });
               },
             ),
           ),
