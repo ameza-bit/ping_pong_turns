@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
 import 'package:ping_pong_turns/models/usuario.dart';
 import 'package:ping_pong_turns/view/game_data.dart';
-import 'package:ping_pong_turns/view/playing.dart';
 import 'package:ping_pong_turns/widgets/widgets.dart';
 
 class GameRoom extends StatefulWidget {
@@ -35,19 +34,6 @@ class _GameRoomState extends State<GameRoom> {
     }
   }
 
-  String getPoints(int p) {
-    switch (p) {
-      case 1:
-        return "•   ○   ○";
-      case 2:
-        return "•   •   ○";
-      case 3:
-        return "•   •   •";
-      default:
-        return "○   ○   ○";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Usuario next = Global.jugando.first;
@@ -61,32 +47,33 @@ class _GameRoomState extends State<GameRoom> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => setState(() => userPoint(Global.player1)),
-                      child: PlayerData(user: Global.player1)),
-                    Text(getPoints(Global.player1.points))
-                  ],
-                ),
+                GestureDetector(
+                  onTap: () => setState(() => userPoint(Global.player1)),
+                  child: PlayerData(user: Global.player1)),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TitleText(txt: "VS"),
                 ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => setState(() => userPoint(Global.player2)),
-                      child: PlayerData(user: Global.player2)),
-                    Text(getPoints(Global.player2.points))
-                  ],
-                ),
+                GestureDetector(
+                  onTap: () => setState(() => userPoint(Global.player2)),
+                  child: PlayerData(user: Global.player2)),
               ],
             ),
             const SizedBox(height: 35),
             const TitleText(txt: "Siguiente en jugar"),
             const SizedBox(height: 5),
-            PlayerData(user: next),
+            GestureDetector(
+              // onLongPress: () => ,
+              child: PlayerData(user: next)
+            ),
+            const SizedBox(height: 35),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OnGameButtons(txt: "Finalizar Día", color: Colors.red, press: () => {}),
+                OnGameButtons(txt: "Ver jugadores", color: Colors.blue.shade600, press: () => {}),
+              ],
+            ),
           ],
         ),
       ),
