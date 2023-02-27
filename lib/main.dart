@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ping_pong_turns/screens/game_room_screen.dart';
 import 'package:ping_pong_turns/screens/waitting_room_screen.dart';
 import 'package:ping_pong_turns/utils/colors.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: bgColor),
       routes: {
         WaittingRoom.routeName: (context) => const WaittingRoom(),
+        GameRoom.routeName: (context) => const GameRoom(),
       },
       initialRoute: WaittingRoom.routeName,
     );

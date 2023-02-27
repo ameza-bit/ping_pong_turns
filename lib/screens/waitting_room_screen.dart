@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
 import 'package:ping_pong_turns/models/usuario.dart';
+import 'package:ping_pong_turns/screens/game_room_screen.dart';
 
 class WaittingRoom extends StatefulWidget {
   static String routeName = '/waitting-room';
@@ -11,6 +12,17 @@ class WaittingRoom extends StatefulWidget {
 }
 
 class _WaittingRoomState extends State<WaittingRoom> {
+  void letsPlay(BuildContext context) {
+    Global.jugando.shuffle();
+    Global.player1 = Global.jugando.first;
+    Global.jugando.remove(Global.player1);
+    Global.player2 = Global.jugando.first;
+    Global.jugando.remove(Global.player2);
+    Global.player1.points = Global.player2.points = 0;
+    Global.player1.playing = Global.player2.playing = 0;
+    Navigator.pushNamed(context, GameRoom.routeName);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -54,9 +66,9 @@ class _WaittingRoomState extends State<WaittingRoom> {
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {if (ready) letsPlay(context)},
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: ready ?Colors.blue : Colors.blueGrey[900],
+                    backgroundColor: ready ? Colors.blue : Colors.blueGrey[900],
                     padding: const EdgeInsets.symmetric(
                         horizontal: 75, vertical: 20),
                     textStyle: const TextStyle(
@@ -64,15 +76,8 @@ class _WaittingRoomState extends State<WaittingRoom> {
                       fontSize: 30,
                       fontWeight: FontWeight.w200,
                     )),
-                child: Text("Entrar"),
+                child: const Text("Entrar"),
               )),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: FloatingActionButton.extended(
-          //     onPressed: Global.jugando.length < 4 ? null : () => {},
-          //     label: const Text("Entrar")
-          //   ),
-          // ),
         ],
       ),
     );
