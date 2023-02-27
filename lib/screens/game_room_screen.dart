@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
 import 'package:ping_pong_turns/models/usuario.dart';
+import 'package:ping_pong_turns/screens/playerlist_screen.dart';
 import 'package:ping_pong_turns/view/game_data.dart';
 import 'package:ping_pong_turns/widgets/widgets.dart';
 
@@ -38,43 +39,48 @@ class _GameRoomState extends State<GameRoom> {
   Widget build(BuildContext context) {
     Usuario next = Global.jugando.first;
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const GameData(),
-            const SizedBox(height: 35),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => setState(() => userPoint(Global.player1)),
-                  child: PlayerData(user: Global.player1)),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TitleText(txt: "VS"),
-                ),
-                GestureDetector(
-                  onTap: () => setState(() => userPoint(Global.player2)),
-                  child: PlayerData(user: Global.player2)),
-              ],
-            ),
-            const SizedBox(height: 35),
-            const TitleText(txt: "Siguiente en jugar"),
-            const SizedBox(height: 5),
-            GestureDetector(
-              // onLongPress: () => ,
-              child: PlayerData(user: next)
-            ),
-            const SizedBox(height: 35),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OnGameButtons(txt: "Finalizar Día", color: Colors.red, press: () => {}),
-                OnGameButtons(txt: "Ver jugadores", color: Colors.blue.shade600, press: () => {}),
-              ],
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const GameData(),
+              const SizedBox(height: 35),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: () => setState(() => userPoint(Global.player1)),
+                      child: PlayerData(user: Global.player1)),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TitleText(txt: "VS"),
+                  ),
+                  GestureDetector(
+                      onTap: () => setState(() => userPoint(Global.player2)),
+                      child: PlayerData(user: Global.player2)),
+                ],
+              ),
+              const SizedBox(height: 35),
+              const TitleText(txt: "Siguiente en jugar"),
+              const SizedBox(height: 5),
+              GestureDetector(
+                  // onLongPress: () => ,
+                  child: PlayerData(user: next)),
+              const SizedBox(height: 35),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OnGameButtons(
+                      txt: "Finalizar Día", color: Colors.red, press: () => {}),
+                  OnGameButtons(
+                      txt: "Ver jugadores",
+                      color: Colors.blue.shade600,
+                      press: () => Navigator.pushNamed(context, PlayerList.routeName)),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
