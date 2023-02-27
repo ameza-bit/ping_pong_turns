@@ -1,9 +1,9 @@
-/*import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
-// import 'package:ping_pong_turns/models/sistema.dart';
-// import 'package:ping_pong_turns/utils/fetch_data.dart';
+import 'package:ping_pong_turns/models/sistema.dart';
+import 'package:ping_pong_turns/utils/fetch_data.dart';
 import 'package:ping_pong_turns/widgets/widgets.dart';
 
 class GameData extends StatefulWidget {
@@ -14,12 +14,12 @@ class GameData extends StatefulWidget {
 }
 
 class _GameDataState extends State<GameData> {
-  // late Future<Sistema> sistema;
+  late Future<Sistema> sistema;
 
   @override
   void initState() {
     super.initState();
-    // sistema = fetchSystemData();
+    sistema = fetchSystemData();
   }
 
   @override
@@ -57,4 +57,3 @@ class GameDataContainer extends StatelessWidget {
     );
   }
 }
-*/
