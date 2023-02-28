@@ -32,7 +32,14 @@ class _GameRoomState extends State<GameRoom> {
         Global.jugando.remove(Global.player2);
         Global.player1.points = Global.player2.points = 0;
       }
+      Global.sistema.partido = Global.sistema.partido!+1;
     }
+    
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -76,7 +83,8 @@ class _GameRoomState extends State<GameRoom> {
                   OnGameButtons(
                       txt: "Ver jugadores",
                       color: Colors.blue.shade600,
-                      press: () => Navigator.pushNamed(context, PlayerList.routeName)),
+                      press: () =>
+                          Navigator.pushNamed(context, PlayerList.routeName)),
                 ],
               ),
             ],

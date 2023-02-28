@@ -6,7 +6,7 @@ import 'package:ping_pong_turns/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());
-}
+} 
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

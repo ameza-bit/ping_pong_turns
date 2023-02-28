@@ -1,10 +1,10 @@
 class Usuario {
-  final int id;
-  final String nickname;
+  late int id;
+  late String nickname;
   late int points; // Un juego de 3 de 3
   late int playing;  // Veces jugando consecutivamente
-  final int winners; // Veces ganadas en general
-  final String avatar;
+  late int winners; // Veces ganadas en general
+  late String avatar;
 
   Usuario({
     required this.id,
@@ -35,6 +35,15 @@ class Usuario {
       winners: map['winners']?.toInt() ?? 0,
       avatar: map['avatar'] ?? '',
     );
+  }
+
+  Usuario.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    nickname = json['Nickname'];
+    points = json['Points'];
+    playing = json['Playing'];
+    winners = json['Winners'];
+    avatar = json['Avatar'];
   }
 
   Usuario copyWith({

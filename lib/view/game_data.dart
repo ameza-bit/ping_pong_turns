@@ -33,7 +33,9 @@ class _GameDataState extends State<GameData> {
         } else if (snapshot.hasError) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [HeaderInfo(title: 'Error', subtitle: '${snapshot.error}'),],
+            children: [
+              HeaderInfo(title: 'Error', subtitle: '${snapshot.error}'),
+            ],
           );
         }
         return const CircularProgressIndicator();
@@ -47,12 +49,13 @@ class GameDataContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String apuesta = (double.parse(Global.sistema.ganancia!).toInt() * Global.sistema.dias).toString();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        HeaderInfo(title: 'Partido', subtitle: '${Global.sistema.partido}°'),
         HeaderInfo(title: 'Fecha', subtitle: '${Global.sistema.fecha}'),
-        HeaderInfo(title: 'Apuesta', subtitle: '\$${Global.sistema.ganancia}'),
+        HeaderInfo(title: 'Partido', subtitle: '${Global.sistema.partido}°'),
+        HeaderInfo(title: 'Apuesta', subtitle: '\$$apuesta'),
       ],
     );
   }

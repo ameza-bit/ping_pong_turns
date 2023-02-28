@@ -107,7 +107,7 @@ class PlayerListItem extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             child: onlist ? Container(
-              width: 32,
+              width: 16,
               height: 32,
               color: const Color.fromARGB(0, 0, 0, 0),
               child: ReorderableDragStartListener(
