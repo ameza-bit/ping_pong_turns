@@ -34,7 +34,7 @@ class _PlayerListState extends State<PlayerList> {
             child: ReorderableListView.builder(
               itemCount: Global.usuarios.length,
               shrinkWrap: true,
-              // buildDefaultDragHandles: false,
+              buildDefaultDragHandles: false,
               itemBuilder: (context, index) {
                 bool onList = Global.jugando.contains(j[index]);
                 bool playing = index == 0 || index == 1;
@@ -55,10 +55,9 @@ class _PlayerListState extends State<PlayerList> {
                         backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
                     child: Container(
                       height: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5), color: color),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: color),
                       child:
-                          PlayerListItem(player: j[index], index: (1 + index)),
+                          PlayerListItem(player: j[index], index: (1 + index), onlist: onList),
                     ),
                   ),
                 );
@@ -67,8 +66,13 @@ class _PlayerListState extends State<PlayerList> {
                 setState(() {
                   oldIndex -= 2;
                   newIndex -= 2;
-                  if (oldIndex < 0 || newIndex < 0 || newIndex > Global.jugando.length || oldIndex >= Global.jugando.length) return;
-                  if (oldIndex < newIndex) { newIndex -= 1; }
+                  if (oldIndex < 0 ||
+                      newIndex < 0 ||
+                      newIndex > Global.jugando.length ||
+                      oldIndex >= Global.jugando.length) return;
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
                   final Usuario item = Global.jugando.removeAt(oldIndex);
                   Global.jugando.insert(newIndex, item);
                 });
@@ -86,10 +90,12 @@ class PlayerListItem extends StatelessWidget {
     super.key,
     required this.player,
     required this.index,
+    required this.onlist,
   });
 
   final Usuario player;
   final int index;
+  final bool onlist;
 
   @override
   Widget build(BuildContext context) {
@@ -99,15 +105,27 @@ class PlayerListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(
-              fit: FlexFit.tight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  WaittingText(txt: index.toString()),
-                ],
-              )),
+            fit: FlexFit.tight,
+            child: onlist ? Container(
+              width: 32,
+              height: 32,
+              color: const Color.fromARGB(0, 0, 0, 0),
+              child: ReorderableDragStartListener(
+                index: index - 1,
+                child: Card(
+                  color: const Color.fromARGB(0, 0, 0, 0),
+                  elevation: 2,
+                  child: Center(child: WaittingText(txt: index.toString())),
+                ),
+              ),
+            )
+            : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [Center(child: WaittingText(txt: index.toString()))],
+            ),
+          ),
           Expanded(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
