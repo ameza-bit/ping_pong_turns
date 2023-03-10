@@ -85,13 +85,13 @@ class PlayerData extends StatelessWidget {
   String getPoints(int p) {
     switch (p) {
       case 1:
-        return "•   ○   ○";
+        return "○   •   •";
       case 2:
-        return "•   •   ○";
+        return "○   ○   •";
       case 3:
-        return "•   •   •";
-      default:
         return "○   ○   ○";
+      default:
+        return "•   •   •";
     }
   }
 
