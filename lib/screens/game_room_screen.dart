@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
 import 'package:ping_pong_turns/models/usuario.dart';
 import 'package:ping_pong_turns/screens/playerlist_screen.dart';
+import 'package:ping_pong_turns/utils/fetch_data.dart';
 import 'package:ping_pong_turns/view/game_data.dart';
 import 'package:ping_pong_turns/widgets/widgets.dart';
 
@@ -32,9 +33,11 @@ class _GameRoomState extends State<GameRoom> {
         Global.jugando.remove(Global.player2);
         Global.player1.points = Global.player2.points = 0;
       }
-      Global.sistema.partido = Global.sistema.partido!+1;
+      Global.sistema.partido = Global.sistema.partido! + 1;
+      fetchLetsPlay();
     }
-    
+    fetchUpdatePlayer(Global.player1);
+    fetchUpdatePlayer(Global.player2);
   }
 
   @override

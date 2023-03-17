@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ping_pong_turns/models/global.dart';
 import 'package:ping_pong_turns/models/usuario.dart';
+import 'package:ping_pong_turns/utils/fetch_data.dart';
 
 class PlayerList extends StatefulWidget {
   static String routeName = '/playerList-room';
@@ -55,9 +56,10 @@ class _PlayerListState extends State<PlayerList> {
                         backgroundColor: const Color.fromARGB(0, 0, 0, 0)),
                     child: Container(
                       height: 50,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: color),
-                      child:
-                          PlayerListItem(player: j[index], index: (1 + index), onlist: onList),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5), color: color),
+                      child: PlayerListItem(
+                          player: j[index], index: (1 + index), onlist: onList),
                     ),
                   ),
                 );
@@ -75,6 +77,7 @@ class _PlayerListState extends State<PlayerList> {
                   }
                   final Usuario item = Global.jugando.removeAt(oldIndex);
                   Global.jugando.insert(newIndex, item);
+                  fetchLetsPlay();
                 });
               },
             ),
@@ -106,25 +109,29 @@ class PlayerListItem extends StatelessWidget {
         children: [
           Flexible(
             fit: FlexFit.tight,
-            child: onlist ? Container(
-              width: 16,
-              height: 32,
-              color: const Color.fromARGB(0, 0, 0, 0),
-              child: ReorderableDragStartListener(
-                index: index - 1,
-                child: Card(
-                  color: const Color.fromARGB(0, 0, 0, 0),
-                  elevation: 2,
-                  child: Center(child: WaittingText(txt: index.toString())),
-                ),
-              ),
-            )
-            : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [Center(child: WaittingText(txt: index.toString()))],
-            ),
+            child: onlist
+                ? Container(
+                    width: 16,
+                    height: 32,
+                    color: const Color.fromARGB(0, 0, 0, 0),
+                    child: ReorderableDragStartListener(
+                      index: index - 1,
+                      child: Card(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        elevation: 2,
+                        child:
+                            Center(child: WaittingText(txt: index.toString())),
+                      ),
+                    ),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(child: WaittingText(txt: index.toString()))
+                    ],
+                  ),
           ),
           Expanded(
               child: Column(

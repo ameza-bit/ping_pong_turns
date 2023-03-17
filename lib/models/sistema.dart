@@ -4,13 +4,19 @@ class Sistema {
   String? ganancia;
   bool? jugando;
   late int dias;
+  int? player1;
+  int? player2;
+  int? player3;
 
   Sistema({
     this.partido, 
     this.fecha, 
     this.ganancia, 
     this.jugando,
-    required this.dias
+    required this.dias,
+    this.player1,
+    this.player2,
+    this.player3
   });
 
   Sistema.fromJson(Map<String, dynamic> json) {
@@ -19,6 +25,9 @@ class Sistema {
     ganancia = json['Ganancia'];
     jugando = json['Jugando'];
     dias = json['Dias'];
+    player1 = json['Player1'];
+    player2 = json['Player2'];
+    player3 = json['Player3'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,6 +37,9 @@ class Sistema {
     data['Ganancia'] = ganancia;
     data['Jugando'] = jugando;
     data['Dias'] = dias;
+    data['Player1'] = player1;
+    data['Player2'] = player2;
+    data['Player3'] = player3;
     return data;
   }
 }
