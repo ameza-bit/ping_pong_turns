@@ -5,6 +5,7 @@ import 'package:ping_pong_turns/screens/playerlist_screen.dart';
 import 'package:ping_pong_turns/utils/fetch_data.dart';
 import 'package:ping_pong_turns/view/game_data.dart';
 import 'package:ping_pong_turns/widgets/widgets.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 
 class GameRoom extends StatefulWidget {
   static String routeName = '/game-room';
@@ -38,6 +39,11 @@ class _GameRoomState extends State<GameRoom> {
     }
     fetchUpdatePlayer(Global.player1);
     fetchUpdatePlayer(Global.player2);
+  }
+
+  Future<void> endDay() async {
+    await fetchEndDay();
+    FlutterExitApp.exitApp(iosForceExit: true);
   }
 
   @override
@@ -82,7 +88,7 @@ class _GameRoomState extends State<GameRoom> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OnGameButtons(
-                      txt: "Finalizar Día", color: Colors.red, press: () => {}),
+                      txt: "Finalizar Día", color: Colors.red, press: endDay),
                   OnGameButtons(
                       txt: "Ver jugadores",
                       color: Colors.blue.shade600,

@@ -105,6 +105,11 @@ Future<bool> fetchOnPlaying() async {
   }
 }
 
+fetchEndDay() async {
+  final response = await httpPost("Sistema", "EndDay");
+  statusCodesMessage(response.statusCode);
+}
+
 void statusCodesMessage(code) {
   switch (code) {
     case 200:
