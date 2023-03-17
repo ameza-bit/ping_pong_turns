@@ -110,6 +110,35 @@ fetchEndDay() async {
   statusCodesMessage(response.statusCode);
 }
 
+fetchAddPartida() async {
+  final response = await http.post(Uri.parse(apiURL),
+      headers: {"Content-Type": "application/json;charset=UTF-8"},
+      body: jsonEncode({
+        "action": 'Partidas',
+        "mode": 'Insert',
+        "player1": Global.player1.id,
+        "player2": Global.player2.id,
+        "jugadas": Global.player1.playing + 1
+      }));
+
+  statusCodesMessage(response.statusCode);
+}
+
+fetchAddJugada() async {
+  final response = await http.post(Uri.parse(apiURL),
+      headers: {"Content-Type": "application/json;charset=UTF-8"},
+      body: jsonEncode({
+        "action": 'Jugadas',
+        "mode": 'Insert',
+        "player1": Global.player1.id,
+        "punto1": Global.player1.points,
+        "player2": Global.player2.id,
+        "punto2": Global.player2.points
+      }));
+
+  statusCodesMessage(response.statusCode);
+}
+
 void statusCodesMessage(code) {
   switch (code) {
     case 200:

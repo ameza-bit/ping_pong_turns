@@ -18,7 +18,9 @@ class GameRoom extends StatefulWidget {
 class _GameRoomState extends State<GameRoom> {
   void userPoint(Usuario user) {
     user.points += 1;
+    fetchAddJugada();
     if (user.points >= 3) {
+      fetchAddPartida();
       if (user.id == Global.player1.id) {
         Global.player1.playing += 1;
         Global.jugando.add(Global.player2);
